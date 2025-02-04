@@ -8,3 +8,10 @@ get "/" do
   erb :home
 end
 
+get "/chapters/1" do 
+  @title = "Chapter 1: A Scandal in Bohemia"
+  @contents = File.readlines("data/toc.txt")
+  @chapter = File.read("data/chp1.txt").split("\n\n")  
+
+  erb :chapter
+end
