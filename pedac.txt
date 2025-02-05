@@ -1,0 +1,38 @@
+
+
+Problem:
+	Input: User input search string into the form
+	Output: The web page shows a list of all the chapter titles (with links) that include that search term.
+
+	Rules:
+		# does casing matter? I don't know.
+
+Examples:
+	# Search(Cat)
+		A Cat in the Hat
+		A Man Drains the Pain --> both include the word (Cat)
+
+Data Structures:
+	# Create a hash to store the chapter titles (what will be viewed) as keys
+	# and the chapter words as the values
+	# @contents is an array of the titles
+	# Use Dir class to get the contents of each chapter and put them in the value
+
+Algorithm:
+	# HELPER create hash
+	# iterate through @contents with each with index
+	#  take the current element in contents and make it the key
+		# for the value at the current element in the directory.
+
+	# HELPER select keys
+		# Take the query search in the params hash
+		# if the value in the chapters_hash includes the search, select that key/value pair
+		# take the selections and return the keys. 	
+
+	# View Template Search:
+		# Create a list of all the selected Titles. Each item in the list should also be a link.
+		# Iterate through with each
+		# need the number associated with the chapter. Shit! hahahha	
+
+	# layout view and Home view
+	# Create a search link in the Table of Contents list in layout / home	
