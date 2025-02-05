@@ -1,0 +1,18 @@
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% if @search && !@selected_titles.empty? %>
+	<h2>Results for <%= @search %></h2>
+	
+	<% count = 0 %>
+	<% @selected_titles.each do |title| %>
+		<li><a href = "/chapters/<%= @indicies[count] %>"><%= title %></a></li>
+		<% count += 1 %>
+	<% end %>	
+	<% else %>
+		<p>Sorry, no matches were found</p>
+<% end %>
