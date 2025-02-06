@@ -15,7 +15,7 @@
 			<li><a href = "/chapters/<%= index + 1 %>#<%= id %>"><%= @contents[index] %></a></li>
 			<ul>
 				<br>
-				<li> <%= paragraph %></li>
+				<li> <%= bold_search_term(paragraph) %></li>
 				</ul>
 			</ul>
 		<% end %>	

@@ -16,6 +16,10 @@ helpers do
       "<p id = #{id}>#{para}</p>"
     end).join
   end
+
+  def bold_search_term(paragraph)
+    paragraph.gsub(@search, "<strong>#{@search}</strong>")
+  end
 end
 
 def sort_chapters
