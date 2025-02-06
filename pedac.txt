@@ -36,3 +36,62 @@ Algorithm:
 
 	# layout view and Home view
 	# Create a search link in the Table of Contents list in layout / home	
+
+
+	Problem 2: Upgraded Search
+	
+	# Input: search term
+	# Output: 
+		 # list of all the chapter titles that include the term and the LINK for that paragraph in the chapter
+		 # The specific paragraph listed underneath.
+
+	# Rules:
+		# Use an id anchor in the chapter page to create an id that links to the specific paragraph.
+		# Once you've found the correct paragraph(s), the chapter title should link to that.
+		# if the search matches multiple terms in the same paragraph ("the", for example)
+			# then the search should include each paragraph (only once) with the title repeated for each paragraph.
+
+		Required Elements:
+			# Id
+			# number for index of title and for linking
+			# paragraph	
+		
+	# Examples:
+		# the
+			# A Scandal in Bohemia (links to paragraph)
+				# paragraph that includes the
+			# A Scandal in Bohemia (links to paragraph)
+				# paragraph that includes the
+			# so on	
+
+			# id => gives the anchor for the indicated paragraph
+			# number gives the index for each chapter title and the link for each chapter
+			# paragraph gives the actual paragraph text.
+
+	# Data Structures:
+		Array of hashes where every hash is a chapter containing id's as keys and paragraphs as values
+		# [ chp1 {id1 => p1, id2 => p2, etc}, chp2 {id1 => p1, id2 => p2, etc}, etc ]
+
+Algorithm:
+	# Helper Create Paragraphs Array
+		Array of hashes
+		# Take the DIrectory children array for data from 0 to 11 indicies
+		# Create an id = to 1
+		# 
+
+	# Select Query
+		# Transform by selecting
+		# iterate first with map, then the second level with select
+		# select each paragraph that includes the query
+		# iterate through this new array of arrays and take the index that current paragraph is at and create a
+		# hash for the title.
+
+	# Search.erb
+		# Iterate over the array with an index
+		# skip the element if it's an empty hash
+		# if not, iterate over the hash. 
+		# Take the element at that index for @content and make it the link in the list with the id as the anchor
+		# under that, should be each paragraph in a sublist. For each paragraph, list the same
+		# chapter as a link with the id for the paragraph.
+
+	# Chapters.erb						

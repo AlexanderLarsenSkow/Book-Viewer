@@ -4,37 +4,46 @@ require 'tilt/erubi'
 
 before do
   @contents = File.readlines("data/toc.txt")
+  @chapters = Dir.new("./data").children[0..11]
 end
 
 helpers do
   def in_paragraphs(chapter)
-    chapter.split("\n\n").map { |para| "<p>#{para}</p>"}.join
+    id = 0
+
+    (chapter.split("\n\n").map do |para|
+      id += 1
+      "<p id = #{id}>#{para}</p>"
+    end).join
   end
 end
 
-def chapters_hash
-  chapters = Dir.new("./data").children[0..11]
-  hash = {}
-  return hash if @search == ''
-
-  @contents.each_with_index do |title, index|
-    hash[title] = File.read("./data/#{chapters[index]}")
+def sort_chapters
+  @chapters.sort_by do |file_name|
+    file_name.gsub(/[a-zA-Z.]/, "").to_i
   end
-  hash
 end
 
-def select_titles(chapters_hash, search)
-  chapters_hash.select {|_, chapter| chapter.include? search }.keys
+def paragraphs_array
+  result = []
+
+  sort_chapters.each_with_object({}) do |chapter, hash|
+    hash = {}
+    id = 1
+    File.read("data/#{chapter}").split("\n\n").each do |paragraph|
+      hash[id] = paragraph
+      id += 1
+    end
+    result << hash
+  end
+  result
 end
 
-def find_indicies
-  return unless @selected_titles
-  indicies = []
-
-  @selected_titles.each do |title|
-    indicies << (@contents.index(title) + 1)
+def search_paragraphs
+  return [] if (!@search || @search == "")
+  paragraphs_array.map do |para_hash|
+    para_hash.select { |_, paragraph| paragraph.include? @search}
   end
-  indicies
 end
 
 not_found do
@@ -59,9 +68,10 @@ end
 
 get "/search" do
   @search = params[:query]
-  chapters_hash = chapters_hash()
-  @selected_titles = select_titles(chapters_hash, @search)
-  @indicies = find_indicies
+   
+    @matches = search_paragraphs
+    p @matches
+    p @search
 
   erb :search
 end

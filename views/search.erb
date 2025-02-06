@@ -5,14 +5,21 @@
   <button type="submit">Search</button>
 </form>
 
-<% if @search && !@selected_titles.empty? %>
+<% if @search && !@matches.all? { |hash| hash.empty? } %>
 	<h2>Results for <%= @search %></h2>
 	
-	<% count = 0 %>
-	<% @selected_titles.each do |title| %>
-		<li><a href = "/chapters/<%= @indicies[count] %>"><%= title %></a></li>
-		<% count += 1 %>
+	<% @matches.each_with_index do |hash, index| %>
+		<% next if hash.empty? %>
+		<% hash.each do |id, paragraph| %>
+		<ul>
+			<li><a href = "/chapters/<%= index + 1 %>#<%= id %>"><%= @contents[index] %></a></li>
+			<ul>
+				<br>
+				<li> <%= paragraph %></li>
+				</ul>
+			</ul>
+		<% end %>	
 	<% end %>	
-	<% else %>
+	<% elsif @matches == [] && @search %>
 		<p>Sorry, no matches were found</p>
 <% end %>
