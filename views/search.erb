@@ -20,6 +20,6 @@
 			</ul>
 		<% end %>	
 	<% end %>	
-	<% elsif (@matches == [] && @search) || no_matches? %>
+	<% elsif no_matches? && @search	 %>
 		<p>Sorry, no matches were found</p>
 <% end %>
