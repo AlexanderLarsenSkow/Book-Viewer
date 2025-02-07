@@ -22,6 +22,10 @@ helpers do
   end
 end
 
+def no_matches?
+  @matches.all? { |hash| hash.empty? }
+end
+
 def sort_chapters
   @chapters.sort_by do |file_name|
     file_name.gsub(/[a-zA-Z.]/, "").to_i

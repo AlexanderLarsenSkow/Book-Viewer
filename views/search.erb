@@ -5,7 +5,7 @@
   <button type="submit">Search</button>
 </form>
 
-<% if @search && !@matches.all? { |hash| hash.empty? } %>
+<% if @search && !no_matches? %>
 	<h2>Results for <%= @search %></h2>
 	
 	<% @matches.each_with_index do |hash, index| %>
@@ -20,6 +20,6 @@
 			</ul>
 		<% end %>	
 	<% end %>	
-	<% elsif @matches == [] && @search %>
+	<% elsif (@matches == [] && @search) || no_matches? %>
 		<p>Sorry, no matches were found</p>
 <% end %>
